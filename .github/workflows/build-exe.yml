@@ -10,29 +10,34 @@ on:
 jobs:
   build-windows:
     name: Build on Windows
+    # IMPORTANTE: habilita un runner de windows
     runs-on: windows-latest
+    
+    # Ajusta los permisos necesarios para subir artefactos
+    permissions:
+      contents: write
+
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
+    - name: Check out repository
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Build executable with PyInstaller
-        run: |
-          pyinstaller --noconfirm --onefile --windowed main.py
-          # Con --onefile obtendrás un solo ejecutable en dist/main.exe
-          # Con --windowed evitas consola, ideal si usas tkinter
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ruta-mas-corta-exe
-          path: dist/main.exe
+    - name: Build executable with PyInstaller
+      run: |
+        pyinstaller --noconfirm --onefile --windowed main.py
+        # Genera un exe en dist/main.exe
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ruta-mas-corta-exe
+        path: dist/main.exe
