@@ -3,17 +3,11 @@ name: Build Executable
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
   build-windows:
-    name: Build on Windows
-    # IMPORTANTE: habilita un runner de windows
     runs-on: windows-latest
-    
-    # Ajusta los permisos necesarios para subir artefactos
     permissions:
       contents: write
 
@@ -28,14 +22,17 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
+        # Instala PyInstaller directo
+        python -m pip install pyinstaller
+        # Instala las librerías que uses en tu proyecto
         pip install -r requirements.txt
 
     - name: Build executable with PyInstaller
       run: |
-        pyinstaller --noconfirm --onefile --windowed main.py
-        # Genera un exe en dist/main.exe
-    
+        python -m pyinstaller --noconfirm --onefile --windowed main.py
+        # Genera dist/main.exe
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
