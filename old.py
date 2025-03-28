@@ -21,7 +21,7 @@ def seleccionar_en_mapa():
     mapa.set_zoom(15)
 
     # Marcador destino fijo
-    mapa.set_marker(4.67580, -74.08946, text="Destino",
+    mapa.set_marker(4.6758718, -74.0900838, text="Destino",
                     marker_color_circle="red", marker_color_outside="red")
 
     leyenda = tk.Label(ventana_mapa,

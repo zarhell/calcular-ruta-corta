@@ -69,4 +69,3 @@ Desarrollado por:
 Presentado a: **Luis Eduardo Ibáñez Forero**  
 Curso: Modelamiento y Optimización  
 **Fundación Universitaria Compensar**
-```
