@@ -20,12 +20,18 @@ jobs:
       with:
         python-version: "3.10"
 
-    - name: Install dependencies
+    - name: Prepare and install dependencies
       run: |
+        # Upgrade base tools
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install PyInstaller
-        pip install --force-reinstall --no-cache-dir numpy
-        pip install -r requirements.txt
+
+        python -m pip uninstall -y numpy matplotlib || true
+
+        python -m pip install --no-cache-dir numpy matplotlib
+
+        # Instalar PyInstaller y demás paquetes
+        python -m pip install --no-cache-dir pyinstaller
+        python -m pip install --no-cache-dir -r requirements.txt
 
     - name: Build executable with PyInstaller
       run: |
